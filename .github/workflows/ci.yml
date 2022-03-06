@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  testing:
+  ci:
     name: CI
     runs-on: ubuntu-latest
     steps:
@@ -34,3 +34,13 @@ jobs:
     - name: Run demo
       run: |
         make demo
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: starter
+        path: |
+          extensions/*
+          !extensions/**/secret.json
+          installed-extensions.png
+          starter
