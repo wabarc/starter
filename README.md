@@ -1,6 +1,6 @@
 # Starter
 
-Starter is a tool for packaging and storing Chrome extensions with [Xvfb](https://en.wikipedia.org/wiki/Xvfb).
+Starter is a tool for packaging and storing Chrome extensions are used with [Xvfb](https://en.wikipedia.org/wiki/Xvfb).
 
 ## Background
 
@@ -26,6 +26,12 @@ File the secrets of buster to `misc/secrets.json`
 
 ```shell
 make build
+```
+
+## Installation
+
+```sh
+sh <(wget https://github.com/wabarc/starter/raw/main/install.sh -O-)
 ```
 
 ## Extensions
