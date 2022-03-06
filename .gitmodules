@@ -1,0 +1,6 @@
+[submodule "external/buster"]
+	path = external/buster
+	url = https://github.com/dessant/buster.git
+[submodule "external/bypass-paywall"]
+	path = external/bypass-paywall
+	url = https://github.com/iamadamdev/bypass-paywalls-chrome.git
