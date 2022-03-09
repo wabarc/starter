@@ -8,6 +8,7 @@ all: build \
 	clean
 
 build: submodule \
+	patch \
 	movext \
 	starter
 
@@ -36,6 +37,10 @@ movext:
 	#cp -r external/buster/dist/chrome extensions/buster
 	@rm -rf extensions/bypass-paywall
 	cp -r external/bypass-paywall extensions/bypass-paywall
+
+patch:
+	@echo "Apply patches..."
+	git apply --directory=external/bypass-paywall/ patches/bypass-paywall-src-js-options.patch
 
 clean:
 	@echo "Cleaning dist..."

@@ -1,0 +1,16 @@
+diff --git a/src/js/options.js b/src/js/options.js
+index 92933d2..47ea1b9 100644
+--- a/src/js/options.js
++++ b/src/js/options.js
+@@ -117,6 +117,11 @@ function init() {
+   if (extensionApi === chrome) {
+     document.body.classList.add('customSitesEnabled');
+   }
++
++  // Default to all sites
++  setTimeout(function () {
++    saveOptions();
++  }, 800);
+ }
+
+ document.addEventListener('DOMContentLoaded', init);
