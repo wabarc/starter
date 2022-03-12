@@ -17,10 +17,11 @@ buster:
 	cp misc/secrets.json external/buster/secrets.json
 	@echo "Packaging buster extension..."
 	$(DOCKER) run -ti --rm -v `pwd`:/workspace node:14-alpine sh -c 'cd /workspace/external/buster; \
-		apk add --no-cache build-base automake autoconf libtool libpng-dev zlib-dev; \
+		apk add --no-cache build-base automake autoconf libtool libpng-dev yasm-dev zlib-dev; \
 		yarn; \
-		yarn add --platform=linuxmusl sharp; \
-		yarn build:chrome'
+		yarn add mozjpeg; \
+		yarn add --dev --platform=linuxmusl sharp; \
+		yarn build:prod:chrome'
 
 starter:
 	@echo "Building starter..."
@@ -48,7 +49,7 @@ clean:
 
 run:
 	@echo "-> Running docker container"
-	$(DOCKER) run --memory="500m" -i --rm -e DISPLAY=:99.0 -v ${PWD}:${HOMEDIR} ${IMAGE} sh -c "\
+	$(DOCKER) run --memory="500m" -ti --rm -e DISPLAY=:99.0 -v ${PWD}:${HOMEDIR} ${IMAGE} sh -c "\
 		cd ${HOMEDIR} && \
 		go get -v && \
 		sh"

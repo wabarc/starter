@@ -11,8 +11,10 @@ provide a solution that, to some extent, reproduces the real browser workplace.
 ## How it works
 
 1. Packaging Chrome extensions into the binary.
-2. Lunching Chrome to load extensions with a specified directory to stores user data.
-3. To launch a new browser in headful, use the flag `--user-data-dir={workspace}/UserDataDir`.
+2. Launching Chrome to load extensions with a specified directory to stores user data.
+3. Launch a remote debugging browser with the flag `--user-data-dir={workspace}/UserDataDir`.
+
+Note: remote debugging address is default to listen on `0.0.0.0:9222`.
 
 ## Prerequisite
 
