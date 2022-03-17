@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-//go:embed extensions/**
+//go:embed extensions/* all:extensions/**/_*
 var extensions embed.FS
 
 const (

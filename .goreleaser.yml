@@ -9,10 +9,7 @@ release:
 before:
   hooks:
     - go mod tidy
-    - make submodule
-    - make patch
-    - make movext
-    - make starter
+    - make build
 
 builds:
   - binary: starter

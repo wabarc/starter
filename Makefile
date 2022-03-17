@@ -9,6 +9,7 @@ all: build \
 
 build: submodule \
 	patch \
+	buster \
 	movext \
 	starter
 
@@ -17,7 +18,7 @@ buster:
 	cp misc/secrets.json external/buster/secrets.json
 	@echo "Packaging buster extension..."
 	$(DOCKER) run -ti --rm -v `pwd`:/workspace node:14-alpine sh -c 'cd /workspace/external/buster; \
-		apk add --no-cache build-base automake autoconf libtool libpng-dev yasm-dev zlib-dev; \
+		apk add --no-cache build-base automake autoconf libtool nasm libpng-dev zlib-dev; \
 		yarn; \
 		yarn add mozjpeg; \
 		yarn add --dev --platform=linuxmusl sharp; \
@@ -30,12 +31,13 @@ starter:
 
 submodule:
 	@echo "Updating git submodule..."
+	@rm -rf external/*
 	git submodule update --init --recursive
 
 movext:
 	@echo "Moving dist to extensions..."
-	#@rm -rf extensions/buster
-	#cp -r external/buster/dist/chrome extensions/buster
+	@rm -rf extensions/buster
+	cp -r external/buster/dist/chrome extensions/buster
 	@rm -rf extensions/bypass-paywall
 	cp -r external/bypass-paywall extensions/bypass-paywall
 
