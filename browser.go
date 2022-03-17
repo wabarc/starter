@@ -61,7 +61,7 @@ func (b *browser) flags() []string {
 		"--disable-extensions=false",
 		"--window-size=1280,1024",
 		"--user-data-dir=" + b.userDataDir,
-		"--disk-cache-size=" + strconv.FormatUint(b.cacheSize, 11),
+		"--disk-cache-size=" + strconv.FormatUint(b.cacheSize, 9),
 	}
 }
 
