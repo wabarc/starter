@@ -22,7 +22,7 @@ jobs:
     - name: File configurations
       run: |
         # see https://github.com/wabarc/starter/issues/1
-        echo '${{ secrets.BUSTER_SECRET }}' > misc/secrets.json
+        echo '${{ secrets.BUSTER_SECRET }}' > hack/secrets.json
 
     - name: Run GoReleaser
       uses: goreleaser/goreleaser-action@v2

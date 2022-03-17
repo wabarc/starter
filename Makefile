@@ -15,7 +15,7 @@ build: submodule \
 
 buster:
 	@echo "Copy secrets.json to source entry..."
-	cp misc/secrets.json external/buster/secrets.json
+	cp hack/secrets.json external/buster/secrets.json
 	@echo "Packaging buster extension..."
 	$(DOCKER) run -ti --rm -v `pwd`:/workspace node:14-alpine sh -c 'cd /workspace/external/buster; \
 		apk add --no-cache build-base automake autoconf libtool nasm libpng-dev zlib-dev; \

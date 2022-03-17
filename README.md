@@ -24,7 +24,7 @@ Note: remote debugging address is default to listen on `0.0.0.0:9222`.
 
 ## Building
 
-File the secrets of buster to `misc/secrets.json`
+File the secrets of buster to `hack/secrets.json`
 
 ```shell
 make build
