@@ -13,8 +13,4 @@ ps
 
 export DISPLAY=:99.0
 
-make build
-
-ls -al extensions/*
-
 ./starter -debug -workspace out

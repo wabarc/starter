@@ -17,7 +17,7 @@ buster:
 	@echo "Copy secrets.json to source entry..."
 	cp hack/secrets.json external/buster/secrets.json
 	@echo "Packaging buster extension..."
-	$(DOCKER) run -ti --rm -v `pwd`:/workspace node:14-alpine sh -c 'cd /workspace/external/buster; \
+	$(DOCKER) run -i --rm -v `pwd`:/workspace node:14-alpine sh -c 'cd /workspace/external/buster; \
 		apk add --no-cache build-base automake autoconf libtool nasm libpng-dev zlib-dev; \
 		yarn; \
 		yarn add mozjpeg; \
@@ -58,6 +58,7 @@ run:
 
 demo:
 	@echo "-> Running docker container"
+	$(MAKE) build
 	$(DOCKER) run --memory="500m" -i --rm -e DISPLAY=:99.0 -v ${PWD}:${HOMEDIR} ${IMAGE} sh -c "\
 		cd ${HOMEDIR} && \
 		sh hack/demo.sh && \
