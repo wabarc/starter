@@ -1,5 +1,8 @@
 # Starter
 
+[![Go Reference](https://img.shields.io/badge/godoc-reference-green.svg)](https://pkg.go.dev/github.com/wabarc/starter)
+[![Releases](https://img.shields.io/github/v/release/wabarc/starter.svg?include_prereleases&color=blue)](https://github.com/wabarc/starter/releases)
+
 Starter is a tool for packaging and storing Chrome extensions are used with [Xvfb](https://en.wikipedia.org/wiki/Xvfb).
 
 ## Background
