@@ -64,4 +64,9 @@ demo:
 		sh hack/demo.sh && \
 		sh hack/0x0.st.sh installed-extensions.png"
 
+test:
+	@echo "-> Running go test"
+	@go clean -testcache
+	@cd installer; go test -v -race
+
 .PHONY: all

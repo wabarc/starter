@@ -36,6 +36,12 @@ make build
 sh <(wget https://github.com/wabarc/starter/raw/main/install.sh -O-)
 ```
 
+Or
+
+```sh
+curl -fsSL https://github.com/wabarc/starter/raw/main/install.sh | sh
+```
+
 ## Extensions
 
 - [x] [bypass-paywalls](https://github.com/iamadamdev/bypass-paywalls-chrome)
