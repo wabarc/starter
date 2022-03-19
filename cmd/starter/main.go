@@ -8,6 +8,7 @@ import (
 	"path"
 
 	"github.com/dustin/go-humanize"
+	"github.com/wabarc/starter"
 )
 
 var (
@@ -42,17 +43,17 @@ func init() {
 
 // TODO: handle gracefully
 func main() {
-	ext := &extension{
-		base: path.Join(workspace, extEntry),
+	ext := &starter.Extension{
+		Base: path.Join(workspace, starter.ExtEntry),
 	}
-	if err := ext.store(); err != nil {
+	if err := ext.Store(); err != nil {
 		log.Fatalln(err)
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
 
 	if !desktop {
-		if err := runXvfb(ctx); err != nil {
+		if err := starter.RunXvfb(ctx); err != nil {
 			log.Fatalln(err)
 		}
 	}
@@ -62,16 +63,16 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	browser := &browser{
-		userDataDir: path.Join(workspace, "UserDataDir"),
-		remotePort:  remotePort,
-		cacheSize:   cacheSize,
+	browser := &starter.Browser{
+		UserDataDir: path.Join(workspace, "UserDataDir"),
+		RemotePort:  remotePort,
+		CacheSize:   cacheSize,
 	}
-	defer os.RemoveAll(browser.userDataDir)
-	go browser.exit(cancel)
+	defer os.RemoveAll(browser.UserDataDir)
+	go browser.Exit(cancel)
 
 	stopped := make(chan bool, 1)
-	if err := browser.init(ctx, ext, stopped); err != nil {
+	if err := browser.Init(ctx, ext, stopped); err != nil {
 		log.Fatalln(err)
 	}
 	<-stopped

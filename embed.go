@@ -1,4 +1,4 @@
-package main
+package starter
 
 import (
 	"embed"
@@ -12,21 +12,21 @@ import (
 var extensions embed.FS
 
 const (
-	extEntry = "extensions"
+	ExtEntry = "extensions" // Entry directory of extensions
 	fileMode = 0o755
 )
 
-type extension struct {
+type Extension struct {
 	// A directory where extensions can be saved for future use in Chrome.
 	// If no directory is specified, it defaults to a temporary directory.
-	base string
+	Base string
 }
 
 func entries() ([]fs.DirEntry, error) {
-	return extensions.ReadDir(extEntry)
+	return extensions.ReadDir(ExtEntry)
 }
 
-func (e *extension) store() error {
+func (e *Extension) Store() error {
 	entries, err := entries()
 	if err != nil {
 		return err
@@ -39,7 +39,7 @@ func (e *extension) store() error {
 				if err != nil {
 					return err
 				}
-				base := strings.TrimPrefix(filepath.Dir(path), extEntry)
+				base := strings.TrimPrefix(filepath.Dir(path), ExtEntry)
 				destDir := filepath.Join(dest, base)
 				if err := os.MkdirAll(destDir, fileMode); err != nil {
 					return err
@@ -61,7 +61,7 @@ func (e *extension) store() error {
 	return err
 }
 
-func (e *extension) lists() (ls []string) {
+func (e *Extension) lists() (ls []string) {
 	entries, err := entries()
 	if err != nil {
 		return
@@ -78,19 +78,19 @@ func (e *extension) lists() (ls []string) {
 	return
 }
 
-func (e *extension) basedir() string {
-	e.base, _ = filepath.Abs(e.base)
-	fi, err := os.Lstat(e.base)
+func (e *Extension) basedir() string {
+	e.Base, _ = filepath.Abs(e.Base)
+	fi, err := os.Lstat(e.Base)
 	if err == nil && fi.IsDir() {
-		return e.base
+		return e.Base
 	}
 
 	if err != nil && os.IsNotExist(err) {
 		// If dir not exist, try to create it.
-		if err := os.MkdirAll(e.base, fileMode); err != nil {
-			e.base, _ = os.MkdirTemp(os.TempDir(), "starter-")
+		if err := os.MkdirAll(e.Base, fileMode); err != nil {
+			e.Base, _ = os.MkdirTemp(os.TempDir(), "starter-")
 		}
 	}
 
-	return e.base
+	return e.Base
 }

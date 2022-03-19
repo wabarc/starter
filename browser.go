@@ -1,4 +1,4 @@
-package main
+package starter
 
 import (
 	"context"
@@ -17,14 +17,14 @@ import (
 	"github.com/wabarc/helper"
 )
 
-type browser struct {
-	userDataDir string
-	remotePort  int
-	cacheSize   uint64
+type Browser struct {
+	UserDataDir string
+	RemotePort  int
+	CacheSize   uint64
 }
 
 // flags: https://peter.sh/experiments/chromium-command-line-switches/
-func (b *browser) flags() []string {
+func (b *Browser) flags() []string {
 	return []string{
 		"--lang=en-US",
 		"--disable-gpu",
@@ -60,15 +60,15 @@ func (b *browser) flags() []string {
 		"--ignore-certificate-errors",
 		"--disable-extensions=false",
 		"--window-size=1280,1024",
-		"--user-data-dir=" + b.userDataDir,
-		"--disk-cache-size=" + strconv.FormatUint(b.cacheSize, 9),
+		"--user-data-dir=" + b.UserDataDir,
+		"--disk-cache-size=" + strconv.FormatUint(b.CacheSize, 9),
 	}
 }
 
 // initial a chrome
-func (b *browser) init(ctx context.Context, ext *extension, stopped chan bool) error {
+func (b *Browser) Init(ctx context.Context, ext *Extension, stopped chan bool) error {
 	// Remove exists user data
-	_ = os.RemoveAll(b.userDataDir)
+	_ = os.RemoveAll(b.UserDataDir)
 
 	if b.isPortBusy() {
 		return fmt.Errorf("Remote debugging port is busy")
@@ -79,7 +79,7 @@ func (b *browser) init(ctx context.Context, ext *extension, stopped chan bool) e
 		`--load-extension=`+exts,
 		`--disable-extensions-except=`+exts,
 		`--remote-debugging-address=0.0.0.0`,
-		`--remote-debugging-port=`+strconv.Itoa(b.remotePort),
+		`--remote-debugging-port=`+strconv.Itoa(b.RemotePort),
 		`chrome://extensions`,
 	)
 
@@ -100,19 +100,10 @@ func (b *browser) init(ctx context.Context, ext *extension, stopped chan bool) e
 		stopped <- true
 	}()
 
-	// TODO: attach to exists window
-	if debug {
-		opts = append(opts, `chrome://extensions`)
-		cmd = exec.CommandContext(ctx, helper.FindChromeExecPath(), opts...)
-		if err := cmd.Run(); err != nil {
-			return fmt.Errorf("Open extensions page failed: %w", err)
-		}
-	}
-
 	return nil
 }
 
-func (b *browser) exit(cancel context.CancelFunc) {
+func (b *Browser) Exit(cancel context.CancelFunc) {
 	signalChan := make(chan os.Signal, 1)
 
 	signal.Notify(
@@ -136,8 +127,8 @@ func (b *browser) exit(cancel context.CancelFunc) {
 	}
 }
 
-func (b *browser) isPortBusy() bool {
-	addr := net.JoinHostPort("127.0.0.1", strconv.Itoa(b.remotePort))
+func (b *Browser) isPortBusy() bool {
+	addr := net.JoinHostPort("127.0.0.1", strconv.Itoa(b.RemotePort))
 	conn, _ := net.DialTimeout("tcp", addr, time.Second)
 	if conn != nil {
 		conn.Close()

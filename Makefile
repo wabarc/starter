@@ -27,7 +27,7 @@ buster:
 starter:
 	@echo "Building starter..."
 	@rm -f starter
-	go build -trimpath --ldflags "-s -w" -o starter *.go
+	go build -trimpath --ldflags "-s -w" -o starter cmd/starter/*.go
 
 submodule:
 	@echo "Updating git submodule..."

@@ -1,4 +1,4 @@
-package main
+package starter
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-func runXvfb(ctx context.Context) error {
+func RunXvfb(ctx context.Context) error {
 	// Xvfb $DISPLAY -ac -screen 0 $XVFB_WHD +extension GLX +render -noreset -nolisten tcp > /dev/null 2>&1 &
 	display := os.Getenv("DISPLAY")
 	whd := os.Getenv("XVFB_WHD")
