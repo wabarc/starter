@@ -21,7 +21,7 @@ Note: remote debugging address is default to listen on `0.0.0.0:9222`.
 
 ## Prerequisite
 
-- [Go](https://golang.org/) (requires Go 1.16 or later)
+- [Go](https://golang.org/) (requires Go 1.18 or later)
 - [GNU Make](https://www.gnu.org/software/make/manual/make.html)
 - Docker/Podman
 
@@ -48,7 +48,7 @@ curl -fsSL https://github.com/wabarc/starter/raw/main/install.sh | sh
 ## Extensions
 
 - [x] [bypass-paywalls](https://github.com/iamadamdev/bypass-paywalls-chrome)
-- [ ] [dessant/buster](https://github.com/dessant/buster)
+- [x] [dessant/buster](https://github.com/dessant/buster)
 - [ ] [gorhill/uBlock](https://github.com/gorhill/uBlock)
 - [ ] [privacypass/challenge-bypass-extension](https://github.com/privacypass/challenge-bypass-extension)
 - [ ] [n4cr/cookiepopupblocker](https://github.com/n4cr/cookiepopupblocker)
