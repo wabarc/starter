@@ -9,7 +9,7 @@ release:
 before:
   hooks:
     - go mod tidy
-    - make build
+    - make before
 
 builds:
   - binary: starter
@@ -24,10 +24,11 @@ builds:
       - 7
     env:
       - CGO_ENABLED=0
-    main: .
+    main: ./cmd/starter
     flags:
       - -trimpath
-    ldflags: -s -w
+    ldflags:
+      - -s -w
 
 archives:
   - format: tar.gz

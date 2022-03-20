@@ -7,11 +7,12 @@ IMAGE := wabarc/golang-chromium:dev
 all: build \
 	clean
 
-build: submodule \
+build: before starter
+
+before: submodule \
 	patch \
 	buster \
-	movext \
-	starter
+	movext
 
 buster:
 	@echo "Copy secrets.json to source entry..."
