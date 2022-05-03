@@ -86,7 +86,7 @@ func (b *Browser) flags() []string {
 		}
 	}
 	if proxyServer != "" {
-		flags = append(flags, fmt.Sprintf(`--proxy-server="%s"`, proxyServer))
+		flags = append(flags, `--proxy-server=`+proxyServer)
 	}
 
 	return flags
