@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"net/url"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -28,7 +29,7 @@ type Browser struct {
 
 // flags: https://peter.sh/experiments/chromium-command-line-switches/
 func (b *Browser) flags() []string {
-	return []string{
+	flags := []string{
 		"--lang=en-US",
 		"--disable-gpu",
 		"--no-sandbox",
@@ -60,12 +61,35 @@ func (b *Browser) flags() []string {
 		"--password-store=basic",
 		"--use-mock-keychain",
 		"--use-fake-device-for-media-stream",
-		"--ignore-certificate-errors",
+		"--ignore-certificate-errors-spki-list",
 		"--disable-extensions=false",
 		"--window-size=1280,1024",
 		"--user-data-dir=" + b.UserDataDir,
 		"--disk-cache-size=" + strconv.FormatUint(b.CacheSize, 9),
 	}
+
+	// https://www.chromium.org/developers/design-documents/network-stack/socks-proxy/
+	var proxyServer string
+	keys := []string{
+		"HTTP_PROXY",
+		"HTTPS_PROXY",
+		"http_proxy",
+		"https_proxy",
+	}
+	for _, key := range keys {
+		if proxyServer = os.Getenv(key); proxyServer != "" {
+			if _, err := url.Parse(proxyServer); err != nil {
+				continue
+			} else {
+				break
+			}
+		}
+	}
+	if proxyServer != "" {
+		flags = append(flags, fmt.Sprintf(`--proxy-server="%s"`, proxyServer))
+	}
+
+	return flags
 }
 
 // initial a chrome
