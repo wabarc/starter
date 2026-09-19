@@ -1,9 +1,9 @@
 module github.com/wabarc/starter
 
-go 1.18
+go 1.21
 
 require (
-	github.com/dustin/go-humanize v1.0.0
+	github.com/dustin/go-humanize v1.1.0
 	github.com/wabarc/helper v0.0.0-20220220012023-0697c095968c
 )
 
