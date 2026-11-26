@@ -1,14 +1,18 @@
 module github.com/wabarc/starter
 
-go 1.18
+go 1.26.0
 
 require (
 	github.com/dustin/go-humanize v1.0.0
-	github.com/wabarc/helper v0.0.0-20220220012023-0697c095968c
+	github.com/wabarc/helper v0.0.0-20261123153418-b87d2248729f
 )
 
 require (
-	golang.org/x/net v0.0.0-20210614182718-04defd469f4e // indirect
-	golang.org/x/text v0.3.6 // indirect
-	mvdan.cc/xurls/v2 v2.2.0 // indirect
+	github.com/fortytw2/leaktest v1.3.0 // indirect
+	github.com/kennygrant/sanitize v1.2.4 // indirect
+	github.com/mattn/go-isatty v0.0.24 // indirect
+	golang.org/x/net v0.63.0 // indirect
+	golang.org/x/sys v0.50.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
+	mvdan.cc/xurls/v2 v2.6.0 // indirect
 )
